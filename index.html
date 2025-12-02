@@ -9,9 +9,56 @@
     header { background: #0460a9; color: #fff; padding: 20px 0; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .logo { font-size: 2rem; font-weight: bold; }
-    nav { margin-top: 10px; }
-    nav a { color: #fff; margin-right: 28px; text-decoration: none; font-weight: 500; }
+    nav { margin-top: 10px; display:flex; align-items:center; gap:28px; }
+    nav a { color: #fff; text-decoration: none; font-weight: 500; }
     nav a:last-child { margin-right: 0; }
+
+    /* NEW USER DROPDOWN CSS */
+    .user-dropdown {
+      margin-left: auto;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .user-name {
+      color: #fff;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 4px;
+      user-select: none;
+    }
+
+    .user-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      background: white;
+      color: #222;
+      min-width: 160px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .user-menu a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #222;
+      font-size: 0.95rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .user-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .user-menu a:hover {
+      background: #f0f2f5;
+    }
+
+    /* Original Styles */
     .hero { background: #c5e2f6; padding: 50px 0 40px 0; text-align: center; }
     .hero h1 { font-size: 2.5rem; margin-bottom: 16px; }
     .hero p { font-size: 1.3rem; }
@@ -27,6 +74,7 @@
     .footer-logo { font-size: 1.6rem; font-weight: 600; }
     .footer-info { font-size: 0.98rem; margin-bottom: 12px;}
     .chat-placeholder { background: #fff; color: #0460a9; border-radius: 6px; padding: 18px; text-align: center; font-weight: 500; margin-top: 16px; min-width: 250px;}
+
     @media(max-width: 800px) {
       .highlights { flex-direction: column; gap: 20px; }
       .footer-content { flex-direction: column; align-items: flex-start;}
@@ -38,12 +86,24 @@
   <header>
     <div class="container">
       <div class="logo">First United Bank</div>
+
+      <!-- UPDATED NAV WITH LOGGED-IN USER DROPDOWN -->
       <nav>
         <a href="#">Personal</a>
         <a href="#">Business</a>
         <a href="#">Locations</a>
         <a href="#">About</a>
-        <a href="#">Login</a>
+
+        <!-- NEW: Logged-In User Dropdown -->
+        <div class="user-dropdown">
+          <span class="user-name" onclick="toggleUserMenu()">Welcome, John Doe ▼</span>
+          <div class="user-menu" id="userMenu">
+            <a href="#">Profile</a>
+            <a href="#">Accounts</a>
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
@@ -92,30 +152,50 @@
             <a href="#">Contact</a>
           </div>
         </div>
-        <div class="chat-placeholder">
-               <script type='text/javascript'>
-      	function initEmbeddedMessaging() {
-      		try {
-      			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
-      
-      			embeddedservice_bootstrap.init(
-      				'00DWB000005v1J3',
-      				'Service_Agent_Channel_FUB',
-      				'https://firstunitedbank--agentforce.sandbox.my.site.com/ESWServiceAgentChannel1762545073998',
-      				{
-      					scrt2URL: 'https://firstunitedbank--agentforce.sandbox.my.salesforce-scrt.com'
-      				}
-      			);
-      		} catch (err) {
-      			console.error('Error loading Embedded Messaging: ', err);
-      		}
-      	};
-      </script>
-      <script type='text/javascript' src='https://firstunitedbank--agentforce.sandbox.my.site.com/ESWServiceAgentChannel1762545073998/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
+        <div class="chat-placeholder">
+          <script type='text/javascript'>
+            function initEmbeddedMessaging() {
+              try {
+                embeddedservice_bootstrap.settings.language = 'en_US';
+
+                embeddedservice_bootstrap.init(
+                  '00DWB000005v1J3',
+                  'Service_Agent_Channel_FUB',
+                  'https://firstunitedbank--agentforce.sandbox.my.site.com/ESWServiceAgentChannel1762545073998',
+                  {
+                    scrt2URL: 'https://firstunitedbank--agentforce.sandbox.my.salesforce-scrt.com'
+                  }
+                );
+              } catch (err) {
+                console.error('Error loading Embedded Messaging: ', err);
+              }
+            };
+          </script>
+          <script type='text/javascript'
+            src='https://firstunitedbank--agentforce.sandbox.my.site.com/ESWServiceAgentChannel1762545073998/assets/js/bootstrap.min.js'
+            onload='initEmbeddedMessaging()'></script>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- NEW JS FOR USER MENU DROPDOWN -->
+  <script>
+    function toggleUserMenu() {
+      const menu = document.getElementById("userMenu");
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    document.addEventListener("click", function(event) {
+      const menu = document.getElementById("userMenu");
+      const toggle = document.querySelector(".user-name");
+      
+      if (!toggle.contains(event.target) && !menu.contains(event.target)) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
+
 </body>
 </html>

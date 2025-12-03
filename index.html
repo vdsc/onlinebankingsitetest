@@ -1,74 +1,262 @@
-<section class="section" style="padding-top:20px;">
-  <div class="container">
-    <h2 style="color:#0460a9; margin-bottom:25px;">Your Accounts</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Banking Portal</title>
 
-    <div style="display:flex; gap:30px; flex-wrap:wrap;">
-      
-      <!-- Checking Account Card -->
-      <div style="background:#fff; flex:1; padding:25px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.08); min-width:280px;">
-        <h3 style="color:#0460a9;">Checking Account</h3>
-        <p style="font-size:1.1rem; margin:10px 0;">Account #: 123456789</p>
-        <p style="font-size:1.8rem; font-weight:bold; margin-top:10px;">$5,824.17</p>
-        <button style="margin-top:18px; background:#0460a9; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">View Details</button>
-      </div>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
 
-      <!-- Savings Account Card -->
-      <div style="background:#fff; flex:1; padding:25px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.08); min-width:280px;">
-        <h3 style="color:#0460a9;">Savings Account</h3>
-        <p style="font-size:1.1rem; margin:10px 0;">Account #: 987654321</p>
-        <p style="font-size:1.8rem; font-weight:bold; margin-top:10px;">$12,450.90</p>
-        <button style="margin-top:18px; background:#0460a9; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">View Details</button>
-      </div>
+        /* HEADER */
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .user-dropdown {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-name {
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+
+        .user-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            min-width: 150px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .user-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #222;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .user-menu a:hover {
+            background: #f0f2f5;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            padding: 30px;
+        }
+
+        h2 {
+            color: #003366;
+        }
+
+        .account-box {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .account-balance {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #008000;
+        }
+
+        /* TRANSACTIONS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #003366;
+            color: white;
+        }
+
+        .credit {
+            color: green;
+            font-weight: bold;
+        }
+
+        .debit {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* CHAT PLACEHOLDER */
+        .chat-placeholder {
+            margin-top: 40px;
+            padding: 20px;
+            background: #eef3f9;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">My Online Banking</div>
+
+        <nav>
+            <a href="#">Personal</a>
+            <a href="#">Business</a>
+            <a href="#">Loans</a>
+            <a href="#">About</a>
+
+            <div class="user-dropdown">
+                <span class="user-name" onclick="toggleUserMenu()">Welcome, John Doe ▼</span>
+
+                <div class="user-menu" id="userMenu">
+                    <a href="#">Profile</a>
+                    <a href="#">Accounts</a>
+                    <a href="#">Settings</a>
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <!-- CHECKING ACCOUNT -->
+        <div class="account-box">
+            <h2>Checking Account • ****1123</h2>
+            <div class="account-balance">$5,842.19</div>
+        </div>
+
+        <!-- SAVINGS ACCOUNT -->
+        <div class="account-box">
+            <h2>Savings Account • ****8842</h2>
+            <div class="account-balance">$12,457.80</div>
+        </div>
+
+        <!-- LATEST TRANSACTIONS -->
+        <h2>Latest Transactions</h2>
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Balance</th>
+            </tr>
+            <tr>
+                <td>Dec 1</td>
+                <td>Payroll Deposit</td>
+                <td class="credit">+ $2,500.00</td>
+                <td>$5,842.19</td>
+            </tr>
+            <tr>
+                <td>Nov 29</td>
+                <td>H-E-B Grocery</td>
+                <td class="debit">- $152.34</td>
+                <td>$3,342.19</td>
+            </tr>
+            <tr>
+                <td>Nov 27</td>
+                <td>ATM Withdrawal</td>
+                <td class="debit">- $100.00</td>
+                <td>$3,494.53</td>
+            </tr>
+            <tr>
+                <td>Nov 25</td>
+                <td>Zelle – Sent to Raj</td>
+                <td class="debit">- $50.00</td>
+                <td>$3,594.53</td>
+            </tr>
+        </table>
+
+        <!-- YOUR EMBEDDED MESSAGING CODE -->
+        <div class="chat-placeholder">
+
+            <script type='text/javascript'>
+                function initEmbeddedMessaging() {
+                    try {
+                        embeddedservice_bootstrap.settings.language = 'en_US';
+
+                        embeddedservice_bootstrap.init(
+                            '00DWB000005v1J3',
+                            'Service_Agent_Channel_FUB',
+                            'https://firstunitedbank--agentforce.sandbox.my.site.com/ESWServiceAgentChannel1762545073998',
+                            {
+                                scrt2URL: 'https://firstunitedbank--agentforce.sandbox.my.salesforce-scrt.com'
+                            }
+                        );
+                    } catch (err) {
+                        console.error('Error loading Embedded Messaging: ', err);
+                    }
+                };
+            </script>
+
+            <script type='text/javascript'
+                src='https://firstunitedbank--agentforce.sandbox.my.site.com/ESWServiceAgentChannel1762545073998/assets/js/bootstrap.min.js'
+                onload='initEmbeddedMessaging()'>
+            </script>
+
+        </div>
 
     </div>
-  </div>
-</section>
 
-<!-- Recent Transactions Section -->
-<section class="section" style="padding-top:10px;">
-  <div class="container">
-    <h2 style="color:#0460a9; margin-bottom:18px;">Recent Transactions</h2>
+    <!-- JS FOR USER MENU -->
+    <script>
+        function toggleUserMenu() {
+            const menu = document.getElementById("userMenu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
 
-    <table style="width:100%; border-collapse:collapse; background:white; border-radius:10px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.08);">
-      <thead style="background:#0460a9; color:white;">
-        <tr>
-          <th style="padding:14px; text-align:left;">Date</th>
-          <th style="padding:14px; text-align:left;">Description</th>
-          <th style="padding:14px; text-align:left;">Type</th>
-          <th style="padding:14px; text-align:right;">Amount</th>
-          <th style="padding:14px; text-align:right;">Balance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding:14px;">Dec 02, 2025</td>
-          <td style="padding:14px;">Starbucks</td>
-          <td style="padding:14px;">Debit</td>
-          <td style="padding:14px; text-align:right;">-$6.45</td>
-          <td style="padding:14px; text-align:right;">$5,824.17</td>
-        </tr>
-        <tr style="background:#f8f8f8;">
-          <td style="padding:14px;">Dec 01, 2025</td>
-          <td style="padding:14px;">Direct Deposit - Employer</td>
-          <td style="padding:14px;">Credit</td>
-          <td style="padding:14px; text-align:right;">+$2,750.00</td>
-          <td style="padding:14px; text-align:right;">$5,830.62</td>
-        </tr>
-        <tr>
-          <td style="padding:14px;">Nov 28, 2025</td>
-          <td style="padding:14px;">HEB Groceries</td>
-          <td style="padding:14px;">Debit</td>
-          <td style="padding:14px; text-align:right;">-$124.63</td>
-          <td style="padding:14px; text-align:right;">$3,080.62</td>
-        </tr>
-        <tr style="background:#f8f8f8;">
-          <td style="padding:14px;">Nov 26, 2025</td>
-          <td style="padding:14px;">Online Transfer to Savings</td>
-          <td style="padding:14px;">Debit</td>
-          <td style="padding:14px; text-align:right;">-$500.00</td>
-          <td style="padding:14px; text-align:right;">$3,205.25</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+        document.addEventListener("click", function (event) {
+            const menu = document.getElementById("userMenu");
+            const toggle = document.querySelector(".user-name");
+
+            if (!toggle.contains(event.target) && !menu.contains(event.target)) {
+                menu.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
